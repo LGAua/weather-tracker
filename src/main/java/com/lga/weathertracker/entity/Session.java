@@ -1,5 +1,6 @@
 package com.lga.weathertracker.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,12 +25,13 @@ import java.util.UUID;
 public class Session {
 
     @Id
-    private UUID id;
+    private String id;
 
     @OneToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
+    @Column(name = "expires_at")
     private LocalDateTime expiresAt;
 
 }
