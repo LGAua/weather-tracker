@@ -15,24 +15,21 @@
                     <h4>Login</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/auth" method="post">
+                    <form action="/sign-in" method="post">
                         <div class="form-group">
                             <label for="login">Enter Email</label>
-                            <input type="text" class="form-control" id="login" name="login" placeholder="Enter your email"
-                                   th:value="${login != null ? login : ''}">
+                            <input type="text" class="form-control" id="login" name="login" placeholder="Enter your email">
                         </div>
                         <div class="form-group">
                             <label for="password">Enter Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
-                                   th:value="${password != null ? password : ''}">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>
-                    <div th:if="${userNotExist}" class="alert alert-danger mt-3" th:text="'No user with such login exists'"></div>
-                    <div th:if="${invalidPassword}" class="alert alert-danger mt-3" th:text="'Invalid password'"></div>
+                    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="/registration" class="btn btn-link">Don't have an account yet? Register here</a>
+                    <a href="/sign-up" class="btn btn-link">Don't have an account yet? Register here</a>
                 </div>
             </div>
         </div>

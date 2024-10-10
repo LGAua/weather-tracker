@@ -15,7 +15,7 @@
                     <h4>Register</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/registration" method="post">
+                    <form action="/sign-up" method="post">
                         <div class="form-group">
                             <label for="login">Register your Email</label>
                             <input type="text" class="form-control" id="login" name="login" placeholder="Enter your email">
@@ -26,10 +26,10 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Create Account</button>
                     </form>
-                    <div th:if="${userExist}" class="alert alert-danger mt-3" th:text="'User already exists'"></div>
+                    <div th:if="${error}" class="alert alert-danger mt-3" th:text="USER_ALREADY_EXISTS"></div>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="/auth" class="btn btn-link">Already have an account? Login here</a>
+                    <a href="/sign-in" class="btn btn-link">Already have an account? Login here</a>
                 </div>
             </div>
         </div>

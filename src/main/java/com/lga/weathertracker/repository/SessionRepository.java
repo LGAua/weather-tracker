@@ -1,9 +1,11 @@
 package com.lga.weathertracker.repository;
 
 import com.lga.weathertracker.entity.Session;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class SessionRepository extends BaseRepository<String, Session> {
 
     public SessionRepository() {
