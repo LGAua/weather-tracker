@@ -31,11 +31,11 @@ public class Location {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "name_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
 
-    private BigDecimal latitude;
+    private double latitude;
 
-    private BigDecimal longitude;
+    private double longitude;
 
 }

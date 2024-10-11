@@ -11,16 +11,33 @@
 
 <!-- Main content -->
 <div class="container mt-4">
-    <h1 class="text-center">Welcome to Weather App</h1>
-    <form method="post" class="form-inline justify-content-center mt-3">
-        <div class="form-group">
-            <input type="text" name="location" class="form-control" placeholder="Enter location" required>
+    <h1 class="text-center mb-4">Welcome to Weather App</h1>
+
+    <div th:replace="~{search-bar}"></div>
+
+    <!-- Weather Cards Section -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="location: ${locations}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${location.city}">City</h5>
+                    <p class="card-text">
+                        <strong>Temperature:</strong> <span th:text="${location.forecast.main.temp} + ' °C'">Temp</span><br>
+                        <strong>Feels Like:</strong> <span th:text="${location.forecast.main.feelsLike} + ' °C'">Feels Like</span><br>
+                        <strong>Pressure:</strong> <span th:text="${location.forecast.main.pressure} + ' hPa'">Pressure</span><br>
+                        <strong>Time:</strong> <span th:text="${location.forecast.time}">Time</span>
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <form action="/home/delete" method="post" class="d-inline">
+                        <input type="hidden" th:value="${location.city}" name="locationName"/>
+                        <input type="hidden" th:value="${location.latitude}" name="lat"/>
+                        <input type="hidden" th:value="${location.longitude}" name="lon"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary ml-2">Search</button>
-    </form>
-    <div class="text-center mt-3">
-        <div th:text="${info}" class="alert alert-info" role="alert"></div>
-        <img th:src="${imageUrl}" alt="Forecast Image" class="img-fluid mt-2"/>
     </div>
 </div>
 

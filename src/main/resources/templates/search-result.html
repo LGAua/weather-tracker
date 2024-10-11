@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<div th:replace="~{header}"></div>
+
+<!-- Main content -->
+<div class="container mt-4">
+    <h1 class="text-center">Welcome to Weather App</h1>
+
+    <div th:replace="~{search-bar}"></div>
+
+    <!-- Weather cards -->
+    <div class="row">
+        <div class="col-md-4" th:each="location : ${possibleLocations}">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${location.city}">City Name</h5>
+                    <p class="card-text" th:text="${location.country}">Country Name</p>
+                    <p class="card-text" th:text="${location.forecast.main.temp}">Country Name</p>
+                    <!-- Form with POST method -->
+                    <form action="/home" method="post">
+                        <!-- You may want to add hidden input with the location ID or name -->
+                        <input type="hidden" th:value="${location.city}" name="name"/>
+                        <input type="hidden" th:value="${location.latitude}" name="latitude"/>
+                        <input type="hidden" th:value="${location.longitude}" name="longitude"/>
+                        <button type="submit" class="btn btn-primary">Add Location</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,11 +1,8 @@
-package com.lga.weathertracker.model;
+package com.lga.weathertracker.model.weatherApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.lga.weathertracker.model.weatherApi.Main;
-import com.lga.weathertracker.model.weatherApi.WeatherMetaInfo;
-import com.lga.weathertracker.model.weatherApi.Wind;
 import com.lga.weathertracker.util.UnixTimeConverter;
 import lombok.Getter;
 
@@ -15,11 +12,14 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
-public class ForecastDto {
+public class ForecastApiDto {
 
     @JsonProperty("dt")
     @JsonDeserialize(using = UnixTimeConverter.class)
     private LocalDateTime time;
+
+    @JsonProperty("name")
+    private String name;
 
     @JsonProperty("main")
     private Main main;
