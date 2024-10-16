@@ -7,12 +7,16 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.net.http.HttpRequest;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -30,15 +34,24 @@ public class SignInController {
     }
 
     @GetMapping
-    public String authentication(){
+    public String authentication() {
         return "sign-in";
     }
 
     @PostMapping
-    public String verifyCredentials(@ModelAttribute User user, Model model, HttpServletResponse resp){
-        if(userService.verifyCredentials(user)){
+    public String verifyCredentials(@ModelAttribute @Validated User user,
+                                    BindingResult bindingResult,
+                                    RedirectAttributes attributes,
+                                    Model model,
+                                    HttpServletResponse resp) {
+        if (bindingResult.hasErrors()) {
+            attributes.addFlashAttribute("bindingErrors", bindingResult.getFieldErrors());
+            return "redirect:/sign-in";
+        }
+
+        if (userService.verifyCredentials(user)) {
             UUID uuid = sessionService.saveNewSession(user);
-            resp.addCookie(new Cookie("sessionId",uuid.toString()));
+            resp.addCookie(new Cookie("sessionId", uuid.toString()));
 
             return "redirect:/home";
         }

@@ -4,6 +4,7 @@ import com.lga.weathertracker.entity.Location;
 import com.lga.weathertracker.model.view.LocationWeatherViewDto;
 import com.lga.weathertracker.model.weatherApi.ForecastApiDto;
 import com.lga.weathertracker.model.weatherApi.LocationPositionApiDto;
+import com.lga.weathertracker.model.weatherApi.WeatherApiResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,6 +46,10 @@ public class ForecastService {
         }
 
         return buildViewDtoFromLocationApiDto(locationsApi, forecastForLocations);
+    }
+
+    public WeatherApiResponseDto getForecastForPosition(double lat, double lon){
+        return weatherApiService.getForecastByPosition(lat, lon);
     }
 
 

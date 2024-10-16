@@ -3,12 +3,15 @@ package com.lga.weathertracker.service;
 import com.lga.weathertracker.entity.Location;
 import com.lga.weathertracker.entity.User;
 import com.lga.weathertracker.repository.BaseRepository;
-import com.lga.weathertracker.repository.UsersRepository;
+import com.password4j.Password;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
+import static com.password4j.Password.check;
+
+@Slf4j
 @Service
 public class UserService {
 
@@ -27,24 +30,19 @@ public class UserService {
 
     public boolean verifyCredentials(User user) {
         Optional<User> optionalUser = userRepository.findByName(user.getLogin());
-        return optionalUser.map(u -> u.getPassword().equals(user.getPassword()))
+        return optionalUser.map(u -> check(user.getPassword(), u.getPassword()).withBcrypt())
                 .orElse(false);
     }
 
-    public Location saveLocationForUser(Location location, User user){
+    public Location saveLocationForUser(Location location, User user) {
         location.setUser(user);
         user.addNewLocation(location);
-        Location save = locationRepository.save(location);
-        return save;
+        log.info("Saving location: {} for user: {}", location.getName(), user.getLogin());
+        return locationRepository.save(location);
     }
-
-
 
     public void saveNewUser(User user) {
+        log.info("Saving user: {}", user.getLogin());
         userRepository.save(user);
-    }
-
-    public User findUserByLogin(String login) {
-        return userRepository.findByName(login).orElse(null);
     }
 }

@@ -7,12 +7,14 @@ import com.lga.weathertracker.util.UnixTimeConverter;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 public class ForecastApiDto {
+    private static final DateTimeFormatter formater = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
 
     @JsonProperty("dt")
     @JsonDeserialize(using = UnixTimeConverter.class)
@@ -29,4 +31,12 @@ public class ForecastApiDto {
 
     @JsonProperty("weather")
     private List<WeatherMetaInfo> weather;
+
+    public String getTime() {
+        return time.format(formater);
+    }
+
+    public WeatherMetaInfo getWeather() {
+        return weather.stream().findFirst().orElse(null);
+    }
 }

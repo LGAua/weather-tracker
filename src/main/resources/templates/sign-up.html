@@ -26,7 +26,10 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Create Account</button>
                     </form>
-                    <div th:if="${error}" class="alert alert-danger mt-3" th:text="USER_ALREADY_EXISTS"></div>
+                    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+                    <div th:if="${bindingErrors}" class="alert alert-danger mt-3" th:each="bindingError : ${bindingErrors}">
+                        <p th:text="${bindingError.getDefaultMessage()}"></p>
+                    </div>
                 </div>
                 <div class="card-footer text-center">
                     <a href="/sign-in" class="btn btn-link">Already have an account? Login here</a>

@@ -1,13 +1,17 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/postgres
-    username: postgres
-    password: pass
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 5000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 5000
 
   flyway:
-    locations: "classpath:db/migration,filesystem:/opt/migration"
-    url: jdbc:postgresql://localhost:5433/postgres
+    url: ${SPRING_DATASOURCE_URL}
     user: postgres
     password: pass
     driver-class-name: org.postgresql.Driver
@@ -15,6 +19,4 @@ spring:
 logging:
   level:
     root: info
-    org.flywaydb: debug
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    com.password4j.PropertyReader: error

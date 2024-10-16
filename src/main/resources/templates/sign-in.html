@@ -27,6 +27,9 @@
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>
                     <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+                    <div th:if="${bindingErrors}" class="alert alert-danger mt-3" th:each="bindingError : ${bindingErrors}">
+                        <p th:text="${bindingError.getDefaultMessage()}"></p>
+                    </div>
                 </div>
                 <div class="card-footer text-center">
                     <a href="/sign-up" class="btn btn-link">Don't have an account yet? Register here</a>

@@ -45,17 +45,4 @@ public class LocationRepository extends BaseRepository<Integer, Location> {
             session.getTransaction().commit();
         }
     }
-
-    public void deleteByLocationNameAndUserId(String locationName, Integer userId) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.createQuery("delete from Location " +
-                            "where name = :locationName " +
-                            "and user.id = :userId")
-                    .setParameter("locationName", locationName)
-                    .setParameter("userId", userId)
-                    .executeUpdate();
-            session.getTransaction().commit();
-        }
-    }
 }

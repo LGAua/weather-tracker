@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <!-- Подключение Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+        }
+        .compact-text {
+            margin-bottom: 5px;
+        }
+        .back-button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-3">
+    <div class="text-center mb-4">
+        <h2 th:if="${city}" th:text="${city}">City Name</h2>
+        <p class="lead"> 3-Hourly weather forecast</p>
+    </div>
+
+    <div class="text-left mb-4 back-button">
+        <a href="/home" class="btn btn-primary">Back to Home</a>
+    </div>
+
+    <div class="row">
+        <div th:if="${forecastList}" th:each="forecast : ${forecastList}" class="col-sm-6 col-md-4 col-lg-3 mb-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <h6 class="card-title" th:text="${forecast.time}">Time</h6>
+                    <img th:src="${forecast.getWeather().getIconUrl()}" alt="Weather Icon" class="weather-icon mb-2"/>
+                    <p class="compact-text" th:text="${forecast.getWeather().main}">Description</p>
+                    <p class="compact-text">
+                        <strong>Temp:</strong> <span th:text="${forecast.main.temp}">Temp</span>°C
+                    </p>
+                    <p class="compact-text">
+                        <strong>Feels:</strong> <span th:text="${forecast.main.feelsLike}">Feels Like</span>°C
+                    </p>
+                    <p class="compact-text">
+                        <strong>Pressure:</strong> <span th:text="${forecast.main.pressure}">Pressure</span> hPa
+                    </p>
+                    <p class="compact-text">
+                        <strong>Wind:</strong> <span th:text="${forecast.wind.speed}">Wind Speed</span> m/s
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

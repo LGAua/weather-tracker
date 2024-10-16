@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .weather-card {
+            transition: transform 0.2s;
+        }
+        .weather-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
@@ -11,25 +19,30 @@
 
 <!-- Main content -->
 <div class="container mt-4">
-    <h1 class="text-center">Welcome to Weather App</h1>
+    <h1 class="text-center mb-4">Welcome to Weather App</h1>
 
     <div th:replace="~{search-bar}"></div>
 
     <!-- Weather cards -->
     <div class="row">
         <div class="col-md-4" th:each="location : ${possibleLocations}">
-            <div class="card mb-4">
-                <div class="card-body">
+            <div class="card mb-4 weather-card">
+                <div class="card-header text-center bg-primary text-white">
                     <h5 class="card-title" th:text="${location.city}">City Name</h5>
-                    <p class="card-text" th:text="${location.country}">Country Name</p>
-                    <p class="card-text" th:text="${location.forecast.main.temp}">Country Name</p>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="'Country: ' + ${location.country}">Country</h6>
+                    <p class="card-text" th:text="'Temperature: ' + ${location.forecast.main.temp} + ' °C'">Temperature</p>
+                    <p class="card-text" th:text="'Feels Like: ' + ${location.forecast.main.feelsLike} + ' °C'">Feels Like</p>
+                    <p class="card-text" th:text="'Last Updated: ' + ${location.forecast.getTime()}">Last Updated</p>
+                    <p class="card-text" th:text="'Latitude: ' + ${location.latitude}">Latitude</p>
+                    <p class="card-text" th:text="'Longitude: ' + ${location.longitude}">Longitude</p>
                     <!-- Form with POST method -->
                     <form action="/home" method="post">
-                        <!-- You may want to add hidden input with the location ID or name -->
                         <input type="hidden" th:value="${location.city}" name="name"/>
                         <input type="hidden" th:value="${location.latitude}" name="latitude"/>
                         <input type="hidden" th:value="${location.longitude}" name="longitude"/>
-                        <button type="submit" class="btn btn-primary">Add Location</button>
+                        <button type="submit" class="btn btn-primary btn-block">Add Location</button>
                     </form>
                 </div>
             </div>

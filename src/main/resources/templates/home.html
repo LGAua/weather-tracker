@@ -25,7 +25,7 @@
                         <strong>Temperature:</strong> <span th:text="${location.forecast.main.temp} + ' °C'">Temp</span><br>
                         <strong>Feels Like:</strong> <span th:text="${location.forecast.main.feelsLike} + ' °C'">Feels Like</span><br>
                         <strong>Pressure:</strong> <span th:text="${location.forecast.main.pressure} + ' hPa'">Pressure</span><br>
-                        <strong>Time:</strong> <span th:text="${location.forecast.time}">Time</span>
+                        <strong>Time:</strong> <span th:text="${location.forecast.getTime()}">Time</span>
                     </p>
                 </div>
                 <div class="card-footer text-center">
@@ -34,6 +34,12 @@
                         <input type="hidden" th:value="${location.latitude}" name="lat"/>
                         <input type="hidden" th:value="${location.longitude}" name="lon"/>
                         <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <form action="/forecast" method="post" class="d-inline">
+                        <input type="hidden" th:value="${location.city}" name="city"/>
+                        <input type="hidden" th:value="${location.latitude}" name="lat"/>
+                        <input type="hidden" th:value="${location.longitude}" name="lon"/>
+                        <button type="submit" class="btn btn-primary">Forecast</button>
                     </form>
                 </div>
             </div>
