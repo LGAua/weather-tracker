@@ -26,7 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Email(message = "Invalid email")
+    @Email(message = "Invalid email (e.g. test@gmail.com)")
     private String login;
 
     @NotBlank(message = "Invalid password")

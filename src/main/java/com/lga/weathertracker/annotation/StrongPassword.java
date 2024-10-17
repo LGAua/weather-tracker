@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StrongPassword {
 
-    String message() default "Password should contain at least 1 letter and 1 number";
+    String message() default "Password should contain letters and numbers";
 
     Class<?>[] groups() default { };
 

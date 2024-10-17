@@ -16,7 +16,6 @@ public class WeatherApiService {
 
     private static final String BASE_URL = "https://api.openweathermap.org/";
     private static final String GEO_URL = "geo/1.0/direct?q=%s&limit=5&appid=%s";
-
     private static final String CURRENT_WEATHER_URL = "data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s";
     private static final String HOURLY_FORECAST_URL = "data/2.5/forecast?lat=%f&lon=%f&units=%s&appid=%s";
     private static final String MEASUREMENT_UNITS = "metric";

@@ -17,9 +17,6 @@ public class HibernateUtil {
         configuration.setProperty("hibernate.connection.password", System.getenv("SPRING_DATASOURCE_PASSWORD"));
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
 
-        configuration.setProperty("show_sql", true);
-        configuration.setProperty("format_sql", true);
-
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Location.class);
         configuration.addAnnotatedClass(Session.class);

@@ -19,6 +19,4 @@ public class SessionAccessInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(sessionAccessInterceptor)
                 .addPathPatterns("/home","/search");
     }
-
-
 }
