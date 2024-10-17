@@ -16,7 +16,7 @@ public class SessionAccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!sessionService.findUserByRequestSessionId(request).isPresent()) {
+        if (!sessionService.isSessionValid(request)) {
             request.getRequestDispatcher("/not-authorised").forward(request, response);
             return false;
         }
