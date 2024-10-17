@@ -12,8 +12,8 @@ spring:
 
   flyway:
     url: ${SPRING_DATASOURCE_URL}
-    user: postgres
-    password: pass
+    user: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
 logging:
